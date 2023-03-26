@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:to_do_app/JSONTEST/jsonapicall.dart';
 import 'package:to_do_app/getmenuapicall.dart';
 import 'package:http/http.dart' as http;
+import 'package:to_do_app/toppicks.dart';
 
 Future<String> getapicall() async {
   var result = await http.post(
@@ -40,7 +42,7 @@ class _CartPageState extends State<CartPage> {
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    getapicall();
+                    getJsonData();
                   },
                   child: Icon(
                     Icons.arrow_back_ios,

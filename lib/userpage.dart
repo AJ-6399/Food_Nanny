@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:to_do_app/JSONTEST/jsonapicall.dart';
+import 'package:to_do_app/fetchMenu.dart';
+import 'package:to_do_app/models/fetchtopPicks.dart';
 import 'package:to_do_app/foodpage.dart';
 import 'package:to_do_app/location.dart';
 import 'package:to_do_app/topheader.dart';
@@ -16,6 +19,11 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   @override
+  void initState() {
+    getJsonData();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -60,19 +68,7 @@ class _UserPageState extends State<UserPage> {
               const SizedBox(
                 height: 12,
               ),
-              InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FoodPage(),
-                        ));
-                  },
-                  child: const TopPicks()),
-              const SizedBox(
-                height: 10,
-              ),
-              const TopPicks(),
+              Container(height: 199, child: FetchMenu()),
             ],
           ),
         ),

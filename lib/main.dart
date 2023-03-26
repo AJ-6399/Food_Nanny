@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:to_do_app/CartPage.dart';
 import 'package:to_do_app/_registration.dart';
-import 'package:to_do_app/chefpage.dart';
 import 'package:to_do_app/user_login.dart';
-import 'package:to_do_app/userdetails_registrattion.dart';
 import 'package:to_do_app/userpage.dart';
 
 void main() async {
