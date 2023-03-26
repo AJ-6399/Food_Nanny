@@ -1,10 +1,16 @@
 import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:to_do_app/_registration.dart';
 import 'package:to_do_app/userpage.dart';
+
+import 'getdata.dart';
+
+String? currUser;
+String? currUserPhone;
+String? currUserPostcode;
+String? currUserAddress;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,44 +21,47 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final textController = TextEditingController();
-  final pswrdController = TextEditingController();
+  TextEditingController pswrdController = TextEditingController();
 
-  void login(String email,password)async {
-    try{
-      showDialog(context: context, builder: (context){
-        return const Center(
-          child: CircularProgressIndicator(color: Colors.red,),
-        );
-      }
-      );
-      Response response=await post(
-          Uri.parse('https://ofop.azurewebsites.net/api/User/login'),
-          body:jsonEncode({
-            "username": email,
-            "password": password
-          }),
+  Future<void> login(String email, password) async {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.grey,
+              ),
+            );
+          });
+      Response response = await post(
+          Uri.parse('https://ofopapi.azurewebsites.net/api/User/login'),
+          body: jsonEncode({"username": email, "password": password}),
           headers: {
             "Accept": "application/json",
-            "content-type":"application/json"
-          }
-      );
-      if(response.statusCode==200)
-      {
-        print("user created");
+            "content-type": "application/json"
+          });
+      var body = response.body;
+      GetData data = GetData.fromJson(jsonDecode(body));
+      currUser = data.usname.toString();
+      currUserPhone = data.phno.toString();
+      currUserPostcode = data.postcode.toString();
+      currUserAddress = data.address.toString();
+      if (response.statusCode == 200) {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => const UserPage(),
             ));
-      }
-      else{
+      } else {
         print(response.statusCode);
+        const LoginPage();
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                       horizontal: 25), //padding outside container
                   child: InkWell(
                     onTap: () {
-                    login(textController.text.toString(),pswrdController.text.toString());
+                      login(textController.text.toString(),
+                          pswrdController.text.toString());
                     },
                     child: Container(
                       padding:

@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:to_do_app/login.dart';
+import 'package:to_do_app/user_login.dart';
 
 class ClientRegistration extends StatefulWidget {
   const ClientRegistration({super.key});
@@ -22,48 +22,42 @@ class _ClientRegistrationState extends State<ClientRegistration> {
   final address = TextEditingController();
   final postcode = TextEditingController();
   final passwordConfirm = TextEditingController();
-  void register()async {
-    try{
-      showDialog(context: context, builder: (context){
-        return const Center(
-          child: CircularProgressIndicator(color: Colors.red),
-        );
-      }
-      );
-      Response response=await post(
-        Uri.parse('https://ofop.azurewebsites.net/api/User/register'),
-        body:jsonEncode(
-          {
-            "custId": 143,
+  void register() async {
+    try {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.red),
+            );
+          });
+      Response response = await post(
+          Uri.parse('https://ofopapi.azurewebsites.net/api/User/register'),
+          body: jsonEncode({
             "custName": username.text.toString(),
             "custUsername": username.text.toString(),
             "custPassword": password.text.toString(),
             "custTelNumber": mobile.text.toString(),
             "custAddress": address.text.toString(),
-            "custPostCode":postcode.text.toString(),
+            "custPostCode": postcode.text.toString(),
             "custEmail": email.text.toString(),
             "userType": 2
-          }
-        ),
+          }),
           headers: {
             "Accept": "application/json",
-            "content-type":"application/json"
-          }
-      );
-  if(response.statusCode==200)
-    {
-      print('user created');
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginPage(),
-          ));
-    }
-  else{
-    print(response.statusCode);
+            "content-type": "application/json"
+          });
+      if (response.statusCode == 200) {
+        print('user created');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ));
+      } else {
+        print(response.statusCode);
       }
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
     }
   }
@@ -161,24 +155,24 @@ class _ClientRegistrationState extends State<ClientRegistration> {
               Padding(
                 padding: EdgeInsets.only(bottom: 30.0),
               ),
-          TextButton(
-                    child: Text(
-                      'Register',
-                    ),
-                    style: TextButton.styleFrom(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                      ),
-                      primary: Colors.white,
-                      backgroundColor: Colors.lightBlue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {
-                      register();
-                    },
+              TextButton(
+                child: Text(
+                  'Register',
+                ),
+                style: TextButton.styleFrom(
+                  textStyle: TextStyle(
+                    fontSize: 20,
                   ),
+                  primary: Colors.white,
+                  backgroundColor: Colors.lightBlue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  register();
+                },
+              ),
             ],
           ),
         ));
