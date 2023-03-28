@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'getmenudata.dart';
 
-int? foodId;
+int foodId = 1;
 String? foodTitle;
 double? foodPrice;
 String? foodIngredients;
 Future<void> getmenu() async {
-  try {
-    Response response = await get(
-        Uri.parse('https://ofopapi.azurewebsites.net/api/Menu/getMenuByMenuID'),
-        headers: {
-          "Accept": "application/json",
-          "content-type": "application/json"
-        });
-    var body = response.body;
-    GetMenuData data = GetMenuData.fromJson(jsonDecode(body));
-    foodId = data.menuId;
-    foodTitle = data.menuName.toString();
-    foodPrice = data.price;
-    foodIngredients = data.ingredients.toString();
-    print(response.statusCode);
-    print(body);
-  } catch (e) {
-    print(e.toString());
-  }
+  Response response = await post(
+      Uri.parse(
+        'https://ofopapi.azurewebsites.net/api/Menu/getAllMenuByCookID',
+      ),
+      body: jsonEncode({foodId}),
+      headers: {
+        "Accept": "application/json",
+        "content-type": "application/json"
+      });
+  var body = response.body;
+  GetMenuData data = GetMenuData.fromJson(jsonDecode(body));
+  foodId = data.menuId!;
+  foodTitle = data.menuName.toString();
+  foodPrice = data.price;
+  foodIngredients = data.ingredients.toString();
+  print(response.statusCode);
+  print(body);
+  print(foodTitle);
 }

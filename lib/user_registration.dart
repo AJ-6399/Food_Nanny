@@ -67,7 +67,7 @@ class _ClientRegistrationState extends State<ClientRegistration> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Registration'),
+          title: Text('Customer Registration'),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,

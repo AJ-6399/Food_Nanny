@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:to_do_app/chef_registration.dart';
 import 'package:to_do_app/user_registration.dart';
 import 'package:to_do_app/userpage.dart';
 
@@ -11,14 +12,14 @@ String? currUserPhone;
 String? currUserPostcode;
 String? currUserAddress;
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class ChefLogin extends StatefulWidget {
+  const ChefLogin({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ChefLogin> createState() => _ChefLoginState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ChefLoginState extends State<ChefLogin> {
   final textController = TextEditingController();
   TextEditingController pswrdController = TextEditingController();
 
@@ -54,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             ));
       } else {
         print(response.statusCode);
-        const LoginPage();
+        const ChefLogin();
       }
     } catch (e) {
       print(e.toString());
@@ -182,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ClientRegistration(),
+                              builder: (context) => const ChefRegistration(),
                             ));
                       },
                       child: Text(

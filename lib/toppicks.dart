@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/JSONTEST/jsonapicall.dart';
-
+import 'package:to_do_app/fetchMenu.dart';
+import 'package:to_do_app/getmenuapicall.dart';
 import 'foodpage.dart';
 
 class TopPicks extends StatefulWidget {
@@ -46,7 +47,7 @@ class _TopPicksState extends State<TopPicks> {
               children: [
                 const CircleAvatar(
                   radius: 70,
-                  backgroundImage: AssetImage('images/cb.jpg'),
+                  backgroundImage: AssetImage('images/biryani.jpg'),
                 ),
                 Padding(
                   padding:
@@ -55,7 +56,7 @@ class _TopPicksState extends State<TopPicks> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        postId.toString(),
+                        number.toString(),
                         style: GoogleFonts.amaranth(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
@@ -68,7 +69,7 @@ class _TopPicksState extends State<TopPicks> {
                         height: 45,
                         width: 160,
                         child: Text(
-                          postName.toString(),
+                          emailUser.toString(),
                           style: GoogleFonts.amaranth(fontSize: 13),
                         ),
                       ),
@@ -81,7 +82,7 @@ class _TopPicksState extends State<TopPicks> {
                           Padding(
                             padding: const EdgeInsets.only(right: 50),
                             child: Text(
-                              postId.toString(),
+                              number.toString(),
                               style: GoogleFonts.amaranth(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,
