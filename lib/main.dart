@@ -7,7 +7,7 @@ import 'package:to_do_app/user_registration.dart';
 import 'package:to_do_app/user_login.dart';
 import 'package:to_do_app/userpage.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const ToDo());
