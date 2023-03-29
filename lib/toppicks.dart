@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/fetchMenu.dart';
 import 'package:to_do_app/getmenuapicall.dart';
 import 'foodpage.dart';
 
@@ -42,20 +41,19 @@ class _TopPicksState extends State<TopPicks> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 13),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const CircleAvatar(
                   radius: 70,
                   backgroundImage: AssetImage('images/biryani.jpg'),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 25, horizontal: 5),
+                  padding: const EdgeInsets.only(top: 25),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        number.toString(),
+                        foodTitle!,
                         style: GoogleFonts.amaranth(
                             fontWeight: FontWeight.bold,
                             color: Colors.red,
@@ -68,7 +66,7 @@ class _TopPicksState extends State<TopPicks> {
                         height: 45,
                         width: 160,
                         child: Text(
-                          emailUser.toString(),
+                          foodIngredients!,
                           style: GoogleFonts.amaranth(fontSize: 13),
                         ),
                       ),
@@ -76,12 +74,12 @@ class _TopPicksState extends State<TopPicks> {
                         height: 10,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(right: 50),
+                            padding: const EdgeInsets.only(right: 100),
                             child: Text(
-                              number.toString(),
+                              '£ $foodPrice',
                               style: GoogleFonts.amaranth(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 30,

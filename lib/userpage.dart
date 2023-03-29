@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/fetchMenu.dart';
+import 'package:to_do_app/backend/showfood.dart';
 import 'package:to_do_app/foodpage.dart';
 import 'package:to_do_app/getmenuapicall.dart';
 import 'package:to_do_app/location.dart';
@@ -18,11 +18,6 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   @override
-  void initState() {
-    FetchMenu();
-    super.initState();
-  }
-
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
@@ -65,11 +60,7 @@ class _UserPageState extends State<UserPage> {
             const SizedBox(
               height: 12,
             ),
-            const SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: FetchMenu(),
-            ),
+            SizedBox(height: 370, child: ShowFood()),
           ]),
         ),
       ),

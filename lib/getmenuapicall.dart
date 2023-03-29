@@ -5,7 +5,7 @@ import 'getmenudata.dart';
 
 int foodId = 1;
 String? foodTitle;
-double? foodPrice;
+String? foodPrice;
 String? foodIngredients;
 Future<void> getmenu() async {
   Response response = await post(
@@ -21,7 +21,7 @@ Future<void> getmenu() async {
   GetMenuData data = GetMenuData.fromJson(jsonDecode(body));
   foodId = data.menuId!;
   foodTitle = data.menuName.toString();
-  foodPrice = data.price;
+
   foodIngredients = data.ingredients.toString();
   print(response.statusCode);
   print(body);

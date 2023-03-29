@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:to_do_app/user_registration.dart';
@@ -21,6 +23,12 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final textController = TextEditingController();
   TextEditingController pswrdController = TextEditingController();
+  Future<void> createUser(String email, emailTwo) async {
+    final data = FirebaseFirestore.instance
+        .collection('test')
+        .add({'email1': email, 'email2': emailTwo});
+    await data;
+  }
 
   Future<void> login(String email, password) async {
     try {
@@ -54,7 +62,11 @@ class _LoginPageState extends State<LoginPage> {
             ));
       } else {
         print(response.statusCode);
-        const LoginPage();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginPage(),
+            ));
       }
     } catch (e) {
       print(e.toString());
@@ -143,6 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                       horizontal: 25), //padding outside container
                   child: InkWell(
                     onTap: () {
+                      createUser(textController.text, textController.text);
                       login(textController.text.toString(),
                           pswrdController.text.toString());
                     },

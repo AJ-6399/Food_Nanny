@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/fetchMenu.dart';
 import 'package:to_do_app/getmenuapicall.dart';
 import 'package:http/http.dart' as http;
 import 'package:to_do_app/toppicks.dart';
@@ -60,11 +59,6 @@ class _CartPageState extends State<CartPage> {
             ),
             const SizedBox(
               height: 30,
-            ),
-            const SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: FetchMenu(),
             ),
           ],
         ),

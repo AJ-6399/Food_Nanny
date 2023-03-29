@@ -1,7 +1,10 @@
 //import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/chef_login.dart';
+import 'package:to_do_app/store_details.dart';
 import 'package:to_do_app/user_login.dart';
 
 class UserChoice extends StatefulWidget {
@@ -12,7 +15,8 @@ class UserChoice extends StatefulWidget {
 }
 
 class _UserChoiceState extends State<UserChoice> {
-  @override
+  final dataController = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
