@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/getmenuapicall.dart';
+import 'package:to_do_app/variables.dart';
+import 'backend/showfood.dart';
 import 'foodpage.dart';
 
 class TopPicks extends StatefulWidget {
@@ -15,13 +16,7 @@ class _TopPicksState extends State<TopPicks> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const FoodPage(),
-            ));
-      },
+      onTap: () {},
       child: Padding(
         padding: const EdgeInsets.only(bottom: 17),
         child: Container(

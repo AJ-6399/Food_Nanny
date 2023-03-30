@@ -1,20 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/foodredirect.dart';
+import 'package:to_do_app/backend/showfood.dart';
+import 'package:to_do_app/foodpage.dart';
+import 'package:to_do_app/src/app.dart';
+import 'package:to_do_app/toppicks.dart';
 import 'package:to_do_app/variables.dart';
-import 'package:to_do_app/userpage.dart';
 
-import 'backend/showfood.dart';
+class FoodRedirect extends StatelessWidget {
+  final String menuPrice;
+  final String menuTitle;
+  final String menuIngredients;
 
-class FoodPage extends StatefulWidget {
-  const FoodPage({Key? key}) : super(key: key);
-
-  @override
-  State<FoodPage> createState() => _FoodPageState();
-}
-
-class _FoodPageState extends State<FoodPage> {
+  FoodRedirect(this.menuPrice, this.menuTitle, this.menuIngredients);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +91,7 @@ class _FoodPageState extends State<FoodPage> {
                   height: 10,
                 ),
                 Center(
-                  child: Text(foodTitle!,
+                  child: Text(menuTitle,
                       style: GoogleFonts.dmSans(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -209,7 +209,7 @@ class _FoodPageState extends State<FoodPage> {
                   SizedBox(
                     width: 250,
                     height: 90,
-                    child: Text(foodIngredients!,
+                    child: Text(menuIngredients,
                         style: GoogleFonts.amaranth(
                           fontSize: 15,
                         )),
@@ -231,9 +231,9 @@ class _FoodPageState extends State<FoodPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 100),
+                padding: const EdgeInsets.only(right: 90),
                 child: Text(
-                  foodPrice!,
+                  '$menuPrice',
                   style: GoogleFonts.amaranth(
                       fontWeight: FontWeight.bold,
                       color: Colors.black,
@@ -241,7 +241,7 @@ class _FoodPageState extends State<FoodPage> {
                 ),
               ),
               Container(
-                width: 143,
+                width: 160,
                 height: 60,
                 decoration: BoxDecoration(
                     color: Colors.red,
