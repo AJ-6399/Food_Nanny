@@ -23,12 +23,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final textController = TextEditingController();
   TextEditingController pswrdController = TextEditingController();
-  Future<void> createUser(String email, emailTwo) async {
-    final data = FirebaseFirestore.instance
-        .collection('test')
-        .add({'email1': email, 'email2': emailTwo});
-    await data;
-  }
 
   Future<void> login(String email, password) async {
     try {
@@ -155,7 +149,6 @@ class _LoginPageState extends State<LoginPage> {
                       horizontal: 25), //padding outside container
                   child: InkWell(
                     onTap: () {
-                      createUser(textController.text, textController.text);
                       login(textController.text.toString(),
                           pswrdController.text.toString());
                     },
