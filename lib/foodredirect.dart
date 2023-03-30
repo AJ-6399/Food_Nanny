@@ -89,17 +89,22 @@ class FoodRedirect extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 213, top: 50),
-                      child: Container(
-                          width: 55,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: const Icon(
-                            CupertinoIcons.cart,
-                            color: Colors.red,
-                          )),
+                      child: InkWell(
+                        onTap: () {
+                          CartPage();
+                        },
+                        child: Container(
+                            width: 55,
+                            height: 45,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                            child: Icon(
+                              CupertinoIcons.cart,
+                              color: Colors.red,
+                            )),
+                      ),
                     ),
                   ],
                 ),
@@ -270,11 +275,11 @@ class FoodRedirect extends StatelessWidget {
                       action: SnackBarAction(
                         label: 'Go to cart',
                         onPressed: () {
-                          CartPage();
+                          const CartPage();
                         },
                       ),
                       content: const Text('Item added'),
-                      duration: const Duration(milliseconds: 1500),
+                      duration: const Duration(milliseconds: 4500),
                       width: 280.0, // Width of the SnackBar.
                       padding: const EdgeInsets.symmetric(
                         horizontal: 8.0, // Inner padding for SnackBar content.
