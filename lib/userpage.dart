@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/backend/showfood.dart';
-import 'package:to_do_app/foodpage.dart';
-import 'package:to_do_app/variables.dart';
 import 'package:to_do_app/location.dart';
 import 'package:to_do_app/topheader.dart';
 import 'package:to_do_app/toppicks.dart';

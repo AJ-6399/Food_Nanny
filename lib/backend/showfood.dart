@@ -9,9 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/backend/add_food.dart';
 import 'package:to_do_app/foodredirect.dart';
-import 'package:to_do_app/variables.dart';
 import 'package:to_do_app/toppicks.dart';
-import '../foodpage.dart';
 
 class ShowFood extends StatefulWidget {
   const ShowFood({super.key});
@@ -23,7 +21,6 @@ class ShowFood extends StatefulWidget {
 String? foodTitle;
 String? foodPrice;
 String? foodIngredients;
-const String fooditemTitle = "";
 
 List<String> fooditemtitle = [];
 List<String> fooditemPrice = [];

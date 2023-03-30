@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:to_do_app/variables.dart';
 import 'backend/showfood.dart';
-import 'foodpage.dart';
 
 class TopPicks extends StatefulWidget {
   const TopPicks({Key? key}) : super(key: key);

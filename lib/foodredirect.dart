@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/backend/showfood.dart';
-import 'package:to_do_app/foodpage.dart';
 import 'package:to_do_app/src/app.dart';
 import 'package:to_do_app/toppicks.dart';
+import 'package:to_do_app/user_login.dart';
 import 'package:to_do_app/variables.dart';
+
+import 'CartPage.dart';
 
 class FoodRedirect extends StatelessWidget {
   final String menuPrice;
@@ -15,6 +18,25 @@ class FoodRedirect extends StatelessWidget {
   final String menuIngredients;
 
   FoodRedirect(this.menuPrice, this.menuTitle, this.menuIngredients);
+  Future<void> addToCart() async {
+    final data = FirebaseFirestore.instance
+        .collection('add_to_cart')
+        .doc(currUser)
+        .collection('cart_items')
+        .add({
+      'custName': currUser,
+      'custPlace': currUserAddress,
+      'custPostcode': currUserPostcode,
+      'custPhone': currUserPhone,
+      'foodIngredients': menuIngredients,
+      'foodPrice': menuPrice,
+      'foodTitle': menuTitle,
+      'orderStatus': false,
+    });
+
+    await data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,41 +262,66 @@ class FoodRedirect extends StatelessWidget {
                       fontSize: 45),
                 ),
               ),
-              Container(
-                width: 160,
-                height: 60,
-                decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(40),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Text(
-                        'Add',
-                        style: GoogleFonts.amaranth(
-                            fontSize: 25,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
+              InkWell(
+                onTap: () {
+                  addToCart();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      action: SnackBarAction(
+                        label: 'Go to cart',
+                        onPressed: () {
+                          CartPage();
+                        },
+                      ),
+                      content: const Text('Item added'),
+                      duration: const Duration(milliseconds: 1500),
+                      width: 280.0, // Width of the SnackBar.
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, // Inner padding for SnackBar content.
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 15),
-                      child: Icon(
-                        CupertinoIcons.add,
-                        color: CupertinoColors.white,
+                  );
+                },
+                child: Container(
+                  width: 160,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(40),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.grey,
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          offset: Offset(0, 3),
+                        )
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: Text(
+                          'Add',
+                          style: GoogleFonts.amaranth(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ],
+                      const Padding(
+                        padding: EdgeInsets.only(right: 15),
+                        child: Icon(
+                          CupertinoIcons.add,
+                          color: CupertinoColors.white,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
