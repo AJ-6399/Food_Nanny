@@ -5,6 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:to_do_app/chef_login.dart';
 import 'package:to_do_app/user_login.dart';
 
 class ChefRegistration extends StatefulWidget {
@@ -52,7 +53,7 @@ class _ChefRegistrationState extends State<ChefRegistration> {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginPage(),
+              builder: (context) => const ChefLogin(),
             ));
       } else {
         print(response.statusCode);

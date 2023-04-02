@@ -117,6 +117,7 @@ class _CartPageState extends State<CartPage> {
                     child: InkWell(
                       onTap: () {
                         addOrder();
+                        print('order added');
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             action: SnackBarAction(
