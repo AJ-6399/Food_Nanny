@@ -68,7 +68,11 @@ class _UserLocationState extends State<UserLocation> {
                       padding: const EdgeInsets.only(
                           left:
                               10), //edgeinset.only() for alignment of text inside input
-                      child: Text('$currUserPostcode'),
+                      child: Text('$currUserPostcode',
+                          style: GoogleFonts.amaranth(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18)),
                     ),
                   ),
                 ),

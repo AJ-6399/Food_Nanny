@@ -9,22 +9,22 @@ import 'package:to_do_app/src/app.dart';
 import 'package:to_do_app/toppicks.dart';
 import 'package:to_do_app/user_login.dart';
 import 'package:to_do_app/variables.dart';
-
+import 'package:to_do_app/user_login.dart' as currUser;
 import 'CartPage.dart';
 
 class FoodRedirect extends StatelessWidget {
   final String menuPrice;
   final String menuTitle;
   final String menuIngredients;
-
+  String? cartUserName;
   FoodRedirect(this.menuPrice, this.menuTitle, this.menuIngredients);
   Future<void> addToCart() async {
     final data = FirebaseFirestore.instance
         .collection('add_to_cart')
-        .doc(currUser)
-        .collection('cart_items')
+        .doc(currUser.currUser)
+        .collection('cartitems')
         .add({
-      'custName': currUser,
+      'custName': currUser.currUser,
       'custPlace': currUserAddress,
       'custPostcode': currUserPostcode,
       'custPhone': currUserPhone,
@@ -33,7 +33,6 @@ class FoodRedirect extends StatelessWidget {
       'foodTitle': menuTitle,
       'orderStatus': false,
     });
-
     await data;
   }
 
@@ -274,9 +273,7 @@ class FoodRedirect extends StatelessWidget {
                     SnackBar(
                       action: SnackBarAction(
                         label: 'Go to cart',
-                        onPressed: () {
-                          const CartPage();
-                        },
+                        onPressed: () {},
                       ),
                       content: const Text('Item added'),
                       duration: const Duration(milliseconds: 4500),

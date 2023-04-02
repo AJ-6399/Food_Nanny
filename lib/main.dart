@@ -25,7 +25,7 @@ class ToDo extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UserPage(),
+      home: UserChoice(),
     );
   }
 }

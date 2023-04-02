@@ -12,6 +12,7 @@ String? currUser;
 String? currUserPhone;
 String? currUserPostcode;
 String? currUserAddress;
+String? cartCustomer;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       currUserPhone = data.phno.toString();
       currUserPostcode = data.postcode.toString();
       currUserAddress = data.address.toString();
-      if (response.statusCode == 200) {
+      if (response.statusCode <= 201) {
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -56,6 +57,23 @@ class _LoginPageState extends State<LoginPage> {
             ));
       } else {
         print(response.statusCode);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Login Failed',
+              style: TextStyle(color: Colors.red),
+            ),
+            duration: const Duration(milliseconds: 4500),
+            width: 280.0, // Width of the SnackBar.
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, // Inner padding for SnackBar content.
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        );
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -149,8 +167,26 @@ class _LoginPageState extends State<LoginPage> {
                       horizontal: 25), //padding outside container
                   child: InkWell(
                     onTap: () {
+                      setState(() {
+                        cartCustomer = currUser;
+                      });
                       login(textController.text.toString(),
                           pswrdController.text.toString());
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text('Successfull Login'),
+                          duration: const Duration(milliseconds: 4500),
+                          width: 280.0, // Width of the SnackBar.
+                          padding: const EdgeInsets.symmetric(
+                            horizontal:
+                                8.0, // Inner padding for SnackBar content.
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                      );
                     },
                     child: Container(
                       padding:

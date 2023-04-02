@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:to_do_app/chef_registration.dart';
+import 'package:to_do_app/src/app.dart';
 import 'package:to_do_app/user_registration.dart';
 import 'package:to_do_app/userpage.dart';
 
 import 'getdata.dart';
 
-String? currUser;
-String? currUserPhone;
-String? currUserPostcode;
-String? currUserAddress;
+String? currCook;
+String? currCookPhone;
+String? currCookPostcode;
+String? currCookAddress;
 
 class ChefLogin extends StatefulWidget {
   const ChefLogin({Key? key}) : super(key: key);
@@ -43,18 +44,49 @@ class _ChefLoginState extends State<ChefLogin> {
           });
       var body = response.body;
       GetData data = GetData.fromJson(jsonDecode(body));
-      currUser = data.usname.toString();
-      currUserPhone = data.phno.toString();
-      currUserPostcode = data.postcode.toString();
-      currUserAddress = data.address.toString();
+      currCook = data.usname.toString();
+      currCookPhone = data.phno.toString();
+      currCookPostcode = data.postcode.toString();
+      currCookAddress = data.address.toString();
       if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Successfull Login'),
+            duration: const Duration(milliseconds: 4500),
+            width: 280.0, // Width of the SnackBar.
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, // Inner padding for SnackBar content.
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        );
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const UserPage(),
+              builder: (context) => const App(),
             ));
       } else {
         print(response.statusCode);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text(
+              'Login Failed',
+              style: TextStyle(color: Colors.red),
+            ),
+            duration: const Duration(milliseconds: 4500),
+            width: 280.0, // Width of the SnackBar.
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0, // Inner padding for SnackBar content.
+            ),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+        );
         const ChefLogin();
       }
     } catch (e) {

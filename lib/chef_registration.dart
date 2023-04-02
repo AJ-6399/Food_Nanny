@@ -171,6 +171,20 @@ class _ChefRegistrationState extends State<ChefRegistration> {
                 ),
                 onPressed: () {
                   register();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('Successfull. Now Log in'),
+                      duration: const Duration(milliseconds: 4500),
+                      width: 280.0, // Width of the SnackBar.
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, // Inner padding for SnackBar content.
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  );
                 },
               ),
             ],

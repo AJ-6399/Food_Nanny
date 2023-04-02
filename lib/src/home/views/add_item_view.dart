@@ -1,62 +1,89 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
+import 'package:to_do_app/chef_login.dart';
 import '../home.dart';
+import '../controllers/home_controller.dart';
 
 class AddItemView extends GetView<HomeController> {
-  const AddItemView({Key? key}) : super(key: key);
+  AddItemView({Key? key}) : super(key: key);
+
+  final nameCtrl = TextEditingController();
+  final catCtrl = TextEditingController();
+  final indCtrl = TextEditingController();
+  final priceCtrl = TextEditingController();
+  final imageCtrl = TextEditingController();
+
+  Future<void> addFoodLive() async {
+    final data = FirebaseFirestore.instance.collection('all_food_items').add({
+      'cookName': currCook.toString(),
+      'cookPlace': currCookPostcode.toString(),
+      'foodIngredients': indCtrl.text.toString(),
+      'foodPrice': priceCtrl.text.toString(),
+      'foodTitle': nameCtrl.text.toString(),
+      'orderStatus': false,
+    });
+    await data;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Item'),
+        title: Text('Add Item $currCook'),
       ),
       body: Container(
-        padding: EdgeInsets.all(24),
+        padding: EdgeInsets.all(34),
         child: Column(
           children: [
-            CommonTextField(
-              controller: controller.nameTextCtrl,
-              hintText: 'Name',
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.red[300],
+                  borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: TextFormField(
+                  controller: nameCtrl,
+                  decoration: InputDecoration(
+                      hintText: 'Name', border: InputBorder.none),
+                ),
+              ),
             ),
-            CommonTextField(
-              controller: controller.catTextCtrl,
-              hintText: 'Category',
-            ),
-            CommonTextField(
-              controller: controller.indTextCtrl,
-              hintText: 'Ingredient',
-            ),
-            CommonTextField(
-              controller: controller.priceTextCtrl,
-              hintText: 'Price',
+            SizedBox(
+              height: 15,
             ),
             Container(
-              margin: EdgeInsets.symmetric(vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-                border: Border.all(
-                  width: 2,
-                  color: Colors.grey,
+                  color: Colors.red[300],
+                  borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: TextFormField(
+                  controller: indCtrl,
+                  decoration: InputDecoration(
+                      hintText: 'Ingredients', border: InputBorder.none),
                 ),
               ),
-              child: Obx(
-                () => ListTile(
-                  onTap: controller.pickImage,
-                  visualDensity: VisualDensity.compact,
-                  title: Text(
-                    controller.imageFile.value.path.isEmpty
-                        ? 'Image'
-                        : controller.imageFile.value.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  trailing: Icon(Icons.image),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.red[300],
+                  borderRadius: BorderRadius.circular(20)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: TextFormField(
+                  controller: priceCtrl,
+                  decoration: InputDecoration(
+                      hintText: 'Price', border: InputBorder.none),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             Container(
               height: 52,
@@ -68,81 +95,16 @@ class AddItemView extends GetView<HomeController> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                 ),
-                onPressed: controller.addItem,
+                onPressed: () {
+                  print('item saved');
+                  addFoodLive();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeView()));
+                },
                 child: Text('Save Item'),
               ),
             )
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CommonTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final String? Function(String?)? validator;
-  final List<TextInputFormatter>? inputFormatters;
-  final TextInputType? keyboardType;
-  final Widget? suffixIcon;
-  final Widget? prefixIcon;
-  const CommonTextField({
-    Key? key,
-    required this.controller,
-    required this.hintText,
-    this.validator,
-    this.inputFormatters,
-    this.keyboardType,
-    this.suffixIcon,
-    this.prefixIcon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(top: 16),
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        inputFormatters: inputFormatters,
-        keyboardType: keyboardType,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(16),
-          filled: true,
-          fillColor: Colors.white,
-          hintText: hintText,
-          suffixIcon: suffixIcon,
-          prefixIcon: prefixIcon,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              width: 2,
-              color: Colors.grey.shade50,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              width: 2,
-              color: Colors.grey,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              width: 2,
-              color: Colors.black,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: BorderSide(
-              width: 2,
-              color: Colors.red,
-            ),
-          ),
         ),
       ),
     );

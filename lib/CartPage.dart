@@ -1,23 +1,19 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:to_do_app/toppicks.dart';
-
-Future<String> getapicall() async {
-  var result = await http.post(
-      Uri.parse("https://ofopapi.azurewebsites.net/api/Menu/getMenuByMenuID"),
-      body: jsonEncode({1}),
-      headers: {
-        "Accept": "application/json",
-        "content-type": "application/json"
-      });
-  print(result.body);
-  return result.body;
-}
+import 'package:to_do_app/userpage.dart';
+import 'backend/showfood.dart';
+import 'backend/view_cart.dart';
+import 'backend/view_cart.dart' as totals;
+import 'chef_login.dart';
+import 'foodredirect.dart';
+import 'backend/showfood.dart' as cookName;
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -26,7 +22,31 @@ class CartPage extends StatefulWidget {
   State<CartPage> createState() => _CartPageState();
 }
 
+String? fTitle;
+String? fIngredients;
+String? fPrice;
+String confirmtxt = "Confirm";
+
 class _CartPageState extends State<CartPage> {
+  Future<void> addOrder() async {
+    int len = order_custName.length;
+    for (int i = 0; i < len; i++) {
+      final data = FirebaseFirestore.instance
+          .collection('chef_orders')
+          .doc(cookName.cookName)
+          .collection('cheforders')
+          .add({
+        'cookName': cookName.cookName,
+        'custName': order_custName[i],
+        'custAddress': order_custAddress[i],
+        'custPhone': order_custPhone[i],
+        'custPostcode': order_custPostcode[i],
+        'foodTitle': order_foodTitle[i],
+      });
+      await data;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,11 +73,93 @@ class _CartPageState extends State<CartPage> {
                   'Cart',
                   style: GoogleFonts.amaranth(
                       fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                Divider(
+                  color: Colors.black,
+                  thickness: 12,
                 )
               ],
             ),
             const SizedBox(
               height: 30,
+            ),
+            Container(height: 535, child: CartItems()),
+            Container(
+              padding: EdgeInsets.only(right: 5),
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.black, borderRadius: BorderRadius.circular(20)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.currency_pound,
+                          size: 22,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          foodTot[foodTot.length - 1].toString(),
+                          style: GoogleFonts.amaranth(
+                              color: Colors.white, fontSize: 35),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 35),
+                    child: InkWell(
+                      onTap: () {
+                        addOrder();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            action: SnackBarAction(
+                              label: '',
+                              onPressed: () {},
+                            ),
+                            content: const Text('Order Succesfull'),
+                            duration: const Duration(milliseconds: 4500),
+                            width: 280.0, // Width of the SnackBar.
+                            padding: const EdgeInsets.symmetric(
+                              horizontal:
+                                  8.0, // Inner padding for SnackBar content.
+                            ),
+                            behavior: SnackBarBehavior.floating,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                          ),
+                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) => UserPage())));
+                      },
+                      child: Container(
+                        width: 130,
+                        height: 45,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                            child: Text(
+                          confirmtxt,
+                          style: GoogleFonts.amaranth(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),

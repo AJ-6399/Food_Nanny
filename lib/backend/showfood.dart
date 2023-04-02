@@ -21,6 +21,7 @@ class ShowFood extends StatefulWidget {
 String? foodTitle;
 String? foodPrice;
 String? foodIngredients;
+String? cookName;
 
 List<String> fooditemtitle = [];
 List<String> fooditemPrice = [];
@@ -40,13 +41,15 @@ class _ShowFoodState extends State<ShowFood> {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
+                    cookName = snapshot.data!.docs[index]['cookName'];
                     foodTitle = snapshot.data!.docs[index]['foodTitle'];
                     foodIngredients =
                         snapshot.data!.docs[index]['foodIngredients'];
                     foodPrice = snapshot.data!.docs[index]['foodPrice'];
+                    fooditemIngredients.add(foodIngredients!);
                     fooditemtitle.add(foodTitle!);
                     fooditemPrice.add(foodPrice!);
-                    fooditemIngredients.add(foodIngredients!);
+
                     return Card(
                       child: ListTile(
                         title: Text(foodTitle!,
