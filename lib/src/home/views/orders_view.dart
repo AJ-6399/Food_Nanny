@@ -22,12 +22,12 @@ class OrdersView extends GetView<HomeController> {
       child: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('chef_orders')
-            .doc(currCook)
+            .doc('Ameya')
             .collection('cheforders')
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasData) {
-            print('has data');
+            print(currCook);
             return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {

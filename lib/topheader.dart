@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_do_app/CartPage.dart';
+import 'package:to_do_app/user_choice.dart';
 
 class TopHeader extends StatefulWidget {
   const TopHeader({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class _TopHeaderState extends State<TopHeader> {
               radius: 18,
               backgroundImage: AssetImage('images/dp.jpg'),
             ),
-            SizedBox(width: 220),
+            SizedBox(width: 180),
             InkWell(
                 onTap: () {
                   Navigator.push(context,
@@ -36,6 +37,20 @@ class _TopHeaderState extends State<TopHeader> {
                 child: Icon(
                   Icons.shopping_cart,
                   color: Colors.red,
+                )),
+            SizedBox(
+              width: 20,
+            ),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserChoice()));
+                },
+                child: Icon(
+                  Icons.logout,
+                  color: Colors.white,
                 ))
           ],
         ),

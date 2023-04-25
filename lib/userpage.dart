@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:to_do_app/backend/showfood.dart';
 import 'package:to_do_app/location.dart';
 import 'package:to_do_app/topheader.dart';
-import 'package:to_do_app/toppicks.dart';
 import 'package:to_do_app/user_login.dart';
 import 'package:to_do_app/usersearchbar.dart';
 

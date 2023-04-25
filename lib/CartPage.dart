@@ -52,7 +52,7 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        padding: EdgeInsets.only(top: 30, left: 10),
+        padding: const EdgeInsets.only(top: 30, left: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -83,7 +83,7 @@ class _CartPageState extends State<CartPage> {
             const SizedBox(
               height: 30,
             ),
-            Container(height: 535, child: CartItems()),
+            Container(height: 535, child: const CartItems()),
             Container(
               padding: EdgeInsets.only(right: 5),
               height: 100,
