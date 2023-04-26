@@ -26,6 +26,7 @@ String? cookName;
 List<String> fooditemtitle = [];
 List<String> fooditemPrice = [];
 List<String> fooditemIngredients = [];
+List<String> cookNames = [];
 
 class _ShowFoodState extends State<ShowFood> {
   @override
@@ -49,6 +50,7 @@ class _ShowFoodState extends State<ShowFood> {
                     fooditemIngredients.add(foodIngredients!);
                     fooditemtitle.add(foodTitle!);
                     fooditemPrice.add(foodPrice!);
+                    cookNames.add(cookName!);
 
                     return Card(
                       child: ListTile(
@@ -73,7 +75,8 @@ class _ShowFoodState extends State<ShowFood> {
                                 builder: (context) => FoodRedirect(
                                     fooditemPrice[index],
                                     fooditemtitle[index],
-                                    fooditemIngredients[index]),
+                                    fooditemIngredients[index],
+                                    cookNames[index]),
                               ));
                         },
                       ),

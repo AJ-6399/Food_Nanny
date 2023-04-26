@@ -16,8 +16,10 @@ class FoodRedirect extends StatelessWidget {
   final String menuPrice;
   final String menuTitle;
   final String menuIngredients;
+  final String cookname;
   String? cartUserName;
-  FoodRedirect(this.menuPrice, this.menuTitle, this.menuIngredients);
+  FoodRedirect(
+      this.menuPrice, this.menuTitle, this.menuIngredients, this.cookname);
   Future<void> addToCart() async {
     final data = FirebaseFirestore.instance
         .collection('add_to_cart')
@@ -32,6 +34,7 @@ class FoodRedirect extends StatelessWidget {
       'foodPrice': menuPrice,
       'foodTitle': menuTitle,
       'orderStatus': false,
+      'cook': cookname
     });
     await data;
   }
