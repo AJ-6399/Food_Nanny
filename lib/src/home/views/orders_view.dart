@@ -23,10 +23,12 @@ class OrdersView extends GetView<HomeController> {
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Container(
+          height: 500,
+          width: double.infinity,
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('chef_orders')
-                .doc('Ameya')
+                .doc(currCook)
                 .collection('cheforders')
                 .snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {

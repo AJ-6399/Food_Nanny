@@ -8,12 +8,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.red,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.red,
+        ),
+        home: const HomeView(),
       ),
-      home: const HomeView(),
     );
   }
 }

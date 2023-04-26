@@ -83,7 +83,7 @@ class FoodRedirect extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               CupertinoIcons.back,
                               color: Colors.red,
                             )),
@@ -93,7 +93,10 @@ class FoodRedirect extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 213, top: 50),
                       child: InkWell(
                         onTap: () {
-                          CartPage();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const CartPage()));
                         },
                         child: Container(
                             width: 55,
@@ -102,7 +105,7 @@ class FoodRedirect extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(14),
                             ),
-                            child: Icon(
+                            child: const Icon(
                               CupertinoIcons.cart,
                               color: Colors.red,
                             )),

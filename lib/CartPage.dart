@@ -11,9 +11,9 @@ import 'package:to_do_app/userpage.dart';
 import 'backend/showfood.dart';
 import 'backend/view_cart.dart';
 import 'backend/view_cart.dart' as totals;
+import 'backend/view_cart.dart' as cookNames;
 import 'chef_login.dart';
 import 'foodredirect.dart';
-import 'backend/showfood.dart' as cookName;
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -33,10 +33,10 @@ class _CartPageState extends State<CartPage> {
     for (int i = 0; i < len; i++) {
       final data = FirebaseFirestore.instance
           .collection('chef_orders')
-          .doc(cookName.cookName)
+          .doc(cooks_name[i])
           .collection('cheforders')
           .add({
-        'cookName': cookName.cookName,
+        'cookName': cooks_name[i],
         'custName': order_custName[i],
         'custAddress': order_custAddress[i],
         'custPhone': order_custPhone[i],

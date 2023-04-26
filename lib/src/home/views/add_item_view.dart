@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:to_do_app/backend/showfood.dart';
 import 'package:to_do_app/chef_login.dart';
 import '../home.dart';
 import '../controllers/home_controller.dart';
@@ -16,7 +17,20 @@ class AddItemView extends GetView<HomeController> {
   final imageCtrl = TextEditingController();
 
   Future<void> addFoodLive() async {
-    final data = FirebaseFirestore.instance.collection('all_food_items').add({
+    final data = FirebaseFirestore.instance
+        .collection('chef_orders')
+        .doc(currCook)
+        .collection('active_menu')
+        .add({
+      'cookName': currCook.toString(),
+      'cookPlace': currCookPostcode.toString(),
+      'foodIngredients': indCtrl.text.toString(),
+      'foodPrice': priceCtrl.text.toString(),
+      'foodTitle': nameCtrl.text.toString(),
+      'orderStatus': false,
+    });
+    final data_to_users =
+        FirebaseFirestore.instance.collection('all_food_items').add({
       'cookName': currCook.toString(),
       'cookPlace': currCookPostcode.toString(),
       'foodIngredients': indCtrl.text.toString(),
@@ -25,6 +39,7 @@ class AddItemView extends GetView<HomeController> {
       'orderStatus': false,
     });
     await data;
+    await data_to_users;
   }
 
   @override

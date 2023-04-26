@@ -30,6 +30,7 @@ String? cartCustPostcode;
 String? foodTitle;
 String? foodPrice;
 String? foodIngredients;
+String? cookNames;
 int totals = 0;
 int cap = 0;
 List<String> order_custName = [];
@@ -38,6 +39,7 @@ List<String> order_custPhone = [];
 List<String> order_custPostcode = [];
 List<String> order_foodTitle = [];
 List<String> order_foodPrice = [];
+List<String> cooks_name = [];
 List<int> foodTot = [0];
 
 class _CartItemsState extends State<CartItems> {
@@ -66,6 +68,7 @@ class _CartItemsState extends State<CartItems> {
                     foodIngredients =
                         snapshot.data!.docs[index]['foodIngredients'];
                     foodPrice = snapshot.data!.docs[index]['foodPrice'];
+                    cookNames = snapshot.data!.docs[index]['cook'];
                     totals = totals + int.parse(foodPrice!);
                     if (cap < snapshot.data!.docs.length) {
                       order_custName.add(cartCustName!);
@@ -74,6 +77,7 @@ class _CartItemsState extends State<CartItems> {
                       order_foodTitle.add(foodTitle!);
                       order_custPostcode.add(cartCustPostcode!);
                       order_foodPrice.add(foodPrice!);
+                      cooks_name.add(cookNames!);
                       foodTot.add(totals);
                       cap++;
                     }
