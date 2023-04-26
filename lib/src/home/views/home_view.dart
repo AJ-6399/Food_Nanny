@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'add_item_view.dart';
 import 'menu_view.dart';
 import 'orders_view.dart';
 
@@ -25,48 +26,62 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(height: 24),
-            Container(
-              height: 40,
-              margin: EdgeInsets.symmetric(horizontal: 24),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: TabBar(
-                  controller: tabController,
-                  indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Colors.red,
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red,
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddItemView()));
+          },
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.grey.shade200,
+        body: SafeArea(
+          child: Column(
+            children: [
+              SizedBox(height: 24),
+              Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: TabBar(
+                    controller: tabController,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.red,
+                    ),
+                    unselectedLabelColor: Colors.red,
+                    tabs: [
+                      Tab(text: 'Menu'),
+                      Tab(text: 'My Order'),
+                    ],
                   ),
-                  unselectedLabelColor: Colors.red,
-                  tabs: [
-                    Tab(text: 'Menu'),
-                    Tab(text: 'My Order'),
-                  ],
                 ),
               ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: TabBarView(
-                  controller: tabController,
-                  children: [
-                    MenuView(),
-                    OrdersView(),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TabBarView(
+                    controller: tabController,
+                    children: [
+                      MenuView(),
+                      OrdersView(),
+                    ],
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
