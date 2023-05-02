@@ -25,8 +25,8 @@ class _TopHeaderState extends State<TopHeader> {
               width: 10,
             ),
             CircleAvatar(
-              radius: 18,
-              backgroundImage: AssetImage('images/dp.jpg'),
+              radius: 17,
+              backgroundImage: AssetImage('images/profileicon.png'),
             ),
             SizedBox(width: 180),
             InkWell(

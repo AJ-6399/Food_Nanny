@@ -22,6 +22,7 @@ class MenuView extends GetView<HomeController> {
     var data_id;
     List<String> id_list = [];
     dataDelete(int Index) {
+      print(reference_data.snapshots());
       var doc_ref = id_list[Index];
       final is_Deleted = reference_data.doc(doc_ref).delete();
       id_list.removeAt(Index);
@@ -47,7 +48,6 @@ class MenuView extends GetView<HomeController> {
                         id_list.add(data_id);
                       }
 
-                      print(id_list);
                       foodtitle = snapshot.data!.docs[index]['foodTitle'];
                       foodPrice = snapshot.data!.docs[index]['foodPrice'];
                       foodingredients =

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do_app/user_choice.dart';
 import 'add_item_view.dart';
 import 'menu_view.dart';
 import 'orders_view.dart';
@@ -43,6 +44,30 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         body: SafeArea(
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      right: 30,
+                      top: 20,
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserChoice()));
+                      },
+                      child: Icon(
+                        Icons.logout_outlined,
+                        color: Colors.red,
+                        size: 40,
+                      ),
+                    ),
+                  )
+                ],
+              ),
               SizedBox(height: 24),
               Container(
                 height: 40,

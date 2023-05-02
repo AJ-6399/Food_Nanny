@@ -45,20 +45,34 @@ List<int> foodTot = [0];
 class _CartItemsState extends State<CartItems> {
   @override
   Widget build(BuildContext context) {
+    final reference_data = FirebaseFirestore.instance
+        .collection('add_to_cart')
+        .doc(currUser.currUser)
+        .collection('cartitems');
+    List<String> id_list = [];
+    var data_id;
+    dataDelete(int Index) {
+      print(reference_data.snapshots());
+      var doc_ref = id_list[Index];
+      final is_Deleted = reference_data.doc(doc_ref).delete();
+      id_list.removeAt(Index);
+      return is_Deleted;
+    }
+
     return Scaffold(
       body: Container(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('add_to_cart')
-              .doc(currUser.currUser)
-              .collection('cartitems')
-              .snapshots(),
+          stream: reference_data.snapshots(),
           builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
               print('has data');
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
+                    data_id = snapshot.data!.docs[index].id;
+                    if (id_list.length <= snapshot.data!.docs.length) {
+                      id_list.add(data_id);
+                    }
                     cartCustName = snapshot.data!.docs[index]['custName'];
                     cartCustPhn = snapshot.data!.docs[index]['custPhone'];
                     cartCustPlace = snapshot.data!.docs[index]['custPlace'];
@@ -97,7 +111,15 @@ class _CartItemsState extends State<CartItems> {
                           radius: 28,
                           backgroundImage: AssetImage('images/french.jpg'),
                         ),
-                        trailing: Text('X1'),
+                        trailing: InkWell(
+                          onTap: () {
+                            dataDelete(index);
+                          },
+                          child: Icon(
+                            Icons.delete_outline,
+                            color: Colors.black,
+                          ),
+                        ),
                         onTap: () {},
                       ),
                     );
