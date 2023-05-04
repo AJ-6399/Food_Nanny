@@ -51,7 +51,6 @@ class _ShowFoodState extends State<ShowFood> {
                     fooditemtitle.add(foodTitle!);
                     fooditemPrice.add(foodPrice!);
                     cookNames.add(cookName!);
-
                     return Card(
                       child: ListTile(
                         title: Text(foodTitle!,

@@ -9,6 +9,7 @@ import 'package:to_do_app/chef_login.dart';
 import '../../../backend/showfood.dart';
 import '../../../backend/view_cart.dart';
 import '../home.dart';
+import 'orderdetails.dart';
 
 class OrdersView extends GetView<HomeController> {
   OrdersView({Key? key}) : super(key: key);
@@ -16,6 +17,11 @@ class OrdersView extends GetView<HomeController> {
   String? orderCustPhn;
   String? orderCustPostcode;
   String? orderFoodTitle;
+  List<String> custName = [];
+  List<String> custPhn = [];
+  List<String> custPostcode = [];
+  List<String> foodTitle = [];
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -42,6 +48,10 @@ class OrdersView extends GetView<HomeController> {
                       orderCustPostcode =
                           snapshot.data!.docs[index]['custPostcode'];
                       orderFoodTitle = snapshot.data!.docs[index]['foodTitle'];
+                      custName.add(orderCustName!);
+                      custPhn.add(orderCustPhn!);
+                      custPostcode.add(orderCustPostcode!);
+                      foodTitle.add(orderFoodTitle!);
                       return Card(
                         child: ListTile(
                           title: Text(orderFoodTitle!,
@@ -54,7 +64,16 @@ class OrdersView extends GetView<HomeController> {
                             backgroundImage: AssetImage('images/french.jpg'),
                           ),
                           trailing: Text('View'),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OrderView(
+                                        foodTitle[index],
+                                        custName[index],
+                                        custPostcode[index],
+                                        custPhn[index])));
+                          },
                         ),
                       );
                     });
